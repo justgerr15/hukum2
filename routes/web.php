@@ -1,6 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+
+use App\Http\Controllers\CrudUserController;
+
 use App\Http\Controllers\CrudAlumniController;
 
 use App\Http\Controllers\CRUDSliderController;
@@ -11,8 +17,6 @@ use App\Http\Controllers\CrudFasilitasController;
 use App\Http\Controllers\CrudKopetensiController;
 use App\Http\Controllers\CrudTeamController;
 use App\Http\Controllers\ChangePasswordController;
-
-use App\Http\Controllers\DashboardController;
 
 use App\Http\Controllers\FacilityController;
 
@@ -30,23 +34,21 @@ use App\Http\Controllers\CrudPictureController;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
 
 use App\Models\alumni;
 
 use App\Http\Controllers\CrudNewsController;
 
-use App\Models\competence;
 use App\Models\counter;
 use App\Models\CrudNews;
 
 use App\Models\facilitie;
 
-use App\Models\partner;
+use App\Models\crudPartner;
 use App\Models\crudPicture;
 use App\Models\crudVisiMisi;
-
+use App\Models\CrudKopetensi;
 use App\Models\CrudSlider;
 
 use App\Http\Controllers\CrudPartnerController;
@@ -56,10 +58,10 @@ use App\Models\team;
 Route::get('/', function () {
     return view('index',[
         'alumni'=>alumni::all(),
-        'kopetensi'=>competence::all(),
+        'kopetensi'=>CrudKopetensi::all(),
         'counter'=>counter::all(),
         'fasilitas'=>facilitie::all(),
-        'partner'=>partner::all(),
+        'partner'=>crudPartner::all(),
         'pictures'=>crudPicture::all(),
         'slider'=>crudSlider::all(),
         'team'=>team::all(),
@@ -72,8 +74,18 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 Route::get('/login', fn()=>view('auth.login'))->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::group(['middleware'=>['auth','check_role:superadmin,admin']], function(){
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+
+Route::group(['middleware' => ['auth', 'check_role:superadmin,admin']], function () {
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // CRUD User Laravel Bawaan
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
 Route::resource('/slider', CRUDSliderController::class);
@@ -98,7 +110,7 @@ Route::resource('/kopetensi', CrudKopetensiController::class);
 Route::get('/kopetensi', [DashboardController::class, 'kopetensi']);
 Route::get('/kopetensi', function () {
     return view('kopetensi',[
-        'kopetensi'=>competence::all(),
+        'kopetensi'=>CrudKopetensi::all(),
     ]);
 });
 
@@ -168,6 +180,21 @@ Route::get('/news/{id}', function($id){
     return view('post', compact('news', 'post'));
 });
 
+Route::middleware(['auth', 'check_role:superadmin'])->group(function () {
+    Route::get('/user', [CrudUserController::class, 'index'])->name('user.index');
+    Route::get('/user/create', [CrudUserController::class, 'create'])->name('user.create');
+    Route::post('/user/store', [CrudUserController::class, 'store'])->name('user.store');
+    Route::get('/user/edit/{id}', [CrudUserController::class, 'edit'])->name('user.edit');
+    Route::put('/user/update/{id}', [CrudUserController::class, 'update'])->name('user.update');
+    Route::delete('/user/delete/{id}', [CrudUserController::class, 'destroy'])->name('user.destroy');
+});
+
+// Profile user (siapa pun yang login)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [CrudUserController::class, 'profile'])->name('user.profile');
+    Route::post('/profile/update', [CrudUserController::class, 'profileUpdate'])->name('user.profile.update');
+});
+
 Route::resource('crud_news', CrudNewsController::class);
 
 Route::prefix('visimisi')->group(function () {
@@ -178,3 +205,6 @@ Route::prefix('visimisi')->group(function () {
     Route::put('/update/{id}', [CrudVisiMisiController::class, 'update'])->name('visi_misi.update');
     Route::delete('/delete/{id}', [CrudVisiMisiController::class, 'destroy'])->name('visi_misi.delete');
 });
+
+
+

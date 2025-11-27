@@ -50,26 +50,41 @@ class CrudTeamController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $team = Team::findOrFail($id);
+{
+    $team = Team::findOrFail($id);
 
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-        ]);
+    $request->validate([
+        'title' => 'required',
+        'description' => 'required',
+        'image' => 'image|mimes:jpg,png,jpeg'
+    ]);
 
-        // upload file baru jika ada
-        if ($request->hasFile('image')) {
-            $filename = time() . "_" . $request->image->getClientOriginalName();
-            $request->image->move('assets/img/teams', $filename);
+    // Default: gunakan gambar lama
+    $filename = $team->image;
+
+    // Jika upload gambar baru
+    if ($request->hasFile('image')) {
+
+        // Hapus gambar lama
+        $oldFile = public_path('assets/img/teams/' . $team->image);
+        if (file_exists($oldFile)) {
+            unlink($oldFile);
         }
 
-        $team->title = $request->title;
-        $team->description = $request->description;
-        $team->save();
-
-        return redirect('/team')->with('success', 'Data berhasil diperbarui');
+        // Upload gambar baru
+        $filename = time() . "_" . $request->image->getClientOriginalName();
+        $request->image->move('assets/img/teams', $filename);
     }
+
+    // Simpan perubahan
+    $team->update([
+        'title' => $request->title,
+        'description' => $request->description,
+        'image' => $filename,
+    ]);
+
+    return redirect('/team')->with('success', 'Data berhasil diperbarui');
+}
 
     public function destroy($id)
     {

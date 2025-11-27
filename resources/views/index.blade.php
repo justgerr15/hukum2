@@ -120,7 +120,7 @@
                     @foreach ($news as $news)
                     <div class="event-item">
                         <div class="event-img">
-                            <img src="assets/img/event/01.jpg" alt="">
+                            <img src="assets/img/news/{{$news['image']}}" alt="">
                         </div>
                         <div class="event-info">
                             <div class="event-meta">

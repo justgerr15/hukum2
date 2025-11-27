@@ -55,7 +55,7 @@
                                         </td>
 
                                         <td class="align-middle">
-                                            <img src="/uploads/{{ $d->image }}"
+                                            <img src="assets/img/news/{{ $d->image }}"
                                                  class="img-fluid rounded shadow-sm"
                                                  style="width: 90px; height: 90px; object-fit: cover;">
                                         </td>

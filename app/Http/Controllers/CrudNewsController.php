@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\CrudNews;
+use App\Models\crudNews;
 use Illuminate\Http\Request;
 
 
@@ -13,8 +13,19 @@ class CrudNewsController extends Controller
 public function index()
 
 {
-$data = CrudNews::all();
+$data = crudNews::all();
 return view('crud_news.index', compact('data'));
+}
+
+public function show($id)
+{
+    // Ambil berita utama
+    $post = CrudNews::findOrFail($id);
+
+    // Ambil 10 berita terbaru untuk sidebar
+    $news = CrudNews::latest()->take(10)->get();
+
+    return view('post', compact('post', 'news'));
 }
 
 
@@ -35,7 +46,7 @@ $request->validate([
 
 
 $imageName = time() . '.' . $request->image->extension();
-$request->image->move(public_path('uploads'), $imageName);
+$request->image->move(public_path('assets/img/news'), $imageName);
 
 
 CrudNews::create([
@@ -75,7 +86,7 @@ $imageName = $row->image;
 if ($request->hasFile('image')) {
 $request->validate(["image" => "image|mimes:jpg,jpeg,png"]);
 $imageName = time() . '.' . $request->image->extension();
-$request->image->move(public_path('uploads'), $imageName);
+$request->image->move(public_path('assets/img/news'), $imageName);
 }
 
 

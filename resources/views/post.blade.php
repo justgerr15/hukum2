@@ -11,7 +11,7 @@
 
                         {{-- GAMBAR BERITA --}}
                         <div class="research-details-img mb-30">
-                            <img src="{{ asset('storage/' . $post->image) }}" alt="thumb">
+                            <img src="{{ asset('assets/img/news/' . $post->image) }}" alt="thumb">
                         </div>
 
                         {{-- JUDUL BERITA --}}
