@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin | Login</title>
+
+  <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -33,7 +38,7 @@
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="{{asset('AdminLTE/dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
   </div>
-
+  
   <!-- Navbar -->
   @include('layout._navbar')
   <!-- /.navbar -->
@@ -42,8 +47,10 @@
   @include('layout._sidebar')
 
   <!-- Content Wrapper. Contains page content -->
+   
   @yield('content')
 
+  @yield('scripts')
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->

@@ -18,9 +18,12 @@ use App\Http\Controllers\CrudKopetensiController;
 use App\Http\Controllers\CrudTeamController;
 use App\Http\Controllers\ChangePasswordController;
 
+use App\Http\Controllers\crudDownloadController;
+
 use App\Http\Controllers\FacilityController;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SettingController;
 
 use App\Http\Controllers\CKEditorController;
 
@@ -41,8 +44,9 @@ use App\Models\alumni;
 use App\Http\Controllers\CrudNewsController;
 
 use App\Models\counter;
+use App\Models\setting;
 use App\Models\CrudNews;
-
+use App\Models\crudDownload;
 use App\Models\facilitie;
 
 use App\Models\crudPartner;
@@ -65,15 +69,26 @@ Route::get('/', function () {
         'pictures'=>crudPicture::all(),
         'slider'=>crudSlider::all(),
         'team'=>team::all(),
-        'news'=>CrudNews::all()
+        'news'=>CrudNews::all(),
+        'setting'=>setting::all(),
     ]);
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/team', [TeamController::class, 'index']);
+});
+
 
 Route::get('/login', fn()=>view('auth.login'))->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::get('/login', function () {
+    return view('auth.login',[
+        'setting'=>setting::all(),
+    ]);
+});
+
 
 Route::group(['middleware' => ['auth', 'check_role:superadmin,admin']], function () {
 
@@ -148,13 +163,15 @@ Route::resource('partner', CrudPartnerController::class);
 Route::get('/about_us/visi_misi', function () {
     return view('visi_misi', [
         'title' => 'Visi dan Misi',
-        'deskripsi' => CrudVisiMisi::all()
+        'deskripsi'=>crudVisiMisi::all(),
+        'setting'=>setting::all(),
     ]);
 });
 
 Route::get('/struktur', function () {
     return view('struktur', [
         'title' => 'Struktur Organisasi',
+        'setting'=>setting::all(),
     ]);
 });
 
@@ -198,7 +215,7 @@ Route::middleware(['auth'])->group(function () {
 Route::resource('crud_news', CrudNewsController::class);
 
 Route::prefix('visimisi')->group(function () {
-    Route::get('/', [CrudVisiMisiController::class, 'index'])->name('/news.index');
+    Route::get('/', [CrudVisiMisiController::class, 'index'])->name('visi_misi.index');
     Route::get('/create', [CrudVisiMisiController::class, 'create'])->name('visi_misi.create');
     Route::post('/store', [CrudVisiMisiController::class, 'store'])->name('visi_misi.store');
     Route::get('/edit/{id}', [CrudVisiMisiController::class, 'edit'])->name('visi_misi.edit');
@@ -206,5 +223,22 @@ Route::prefix('visimisi')->group(function () {
     Route::delete('/delete/{id}', [CrudVisiMisiController::class, 'destroy'])->name('visi_misi.delete');
 });
 
+Route::resource('downloads', CrudDownloadController::class);
+Route::prefix('downloads')->group(function () {
+    Route::get('/', [CrudDownloadController::class, 'index'])->name('downloads.index');
+    Route::get('/create', [CrudDownloadController::class, 'create'])->name('downloads.create');
+    Route::post('/store', [CrudDownloadController::class, 'store'])->name('downloads.store');
+    Route::get('/edit/{id}', [CrudDownloadController::class, 'edit'])->name('downloads.edit');
+    Route::put('/update/{id}', [CrudDownloadController::class, 'update'])->name('downloads.update');
+    Route::delete('/delete/{id}', [CrudDownloadController::class, 'destroy'])->name('downloads.delete');
+});
+Route::get('/download', function () {
+    return view('download', [
+        'title' => 'Download',
+        'download' => CrudDownload::all()
+    ]);
+});
 
-
+Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
+Route::get('/setting/{id}/edit', [SettingController::class, 'edit'])->name('setting.edit');
+Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting.update');

@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
-<x-head></x-head>
+<x-head>{{ $setting[0]->name ?? 'Website' }}</x-head>
 
 <body>
 
@@ -19,33 +20,23 @@
     <!-- header area -->
     <header class="header">
 
-        <div class="header-top">
-            <div class="container">
-                <div class="header-top-wrap">
-                    <div class="header-top-left">
-                    </div>
-                    <div class="header-top-right">
-                        <div class="header-top-contact">
-                            <ul>
-                                <li>
-                                    <a href="#"><i class="far fa-location-dot"></i> Jln. Kesehatan, No.3, Maumere</a>
-                                </li>
-                                <li>
-                                    <a href="mailto:info@example.com"><i class="far fa-envelopes"></i> informasi@nusanipa.ac.id</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <x-nav-bar></x-nav-bar>
     </header>
     <!-- header area end -->
 
     <main class="main">
 
-    <x-breadcrumb>{{$title}}</x-breadcrumb>
+     <!-- breadcrumb -->
+                <div class="site-breadcrumb" style="background: url('{{ asset('assets/img/breadcrumb/Foto.jpg') }}')">
+                <div class="container">
+                    <h2 class="breadcrumb-title">{{$title}}</h2>
+                    <ul class="breadcrumb-menu">
+                        <li><a href="{{ url('/') }}">Tentang Kami</a></li>
+                        <li class="active">{{$title}}</li>
+                    </ul>
+                </div>
+            </div>
+
+        <!-- breadcrumb end -->
 
       
         <!-- athletic -->

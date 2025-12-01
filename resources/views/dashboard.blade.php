@@ -154,6 +154,22 @@
             </div>
           </div>
 
+          <!-- download -->
+          <div class="col-lg-3 col-md-6 col-12">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ $downloadCount }}</h3>
+                <p>Total File</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-download"></i>
+              </div>
+              <a href="{{ url('/downloads') }}" class="small-box-footer">
+                Kelola File <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+
         </div>
 
       </div>

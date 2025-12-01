@@ -3,6 +3,7 @@
 @section('content')
 <div class="container mt-4">
     <h2>Tambah Visi & Misi</h2>
+
     <a href="{{ route('visi_misi.index') }}" class="btn btn-secondary mb-3">Kembali</a>
 
     @if ($errors->any())
@@ -12,33 +13,46 @@
     @endif
 
     <form action="{{ route('visi_misi.store') }}" method="POST">
-    @csrf
-    <div class="form-group">
-        <label for="judul">Judul</label>
-        <input type="text" name="judul" class="form-control" id="judul" value="{{ old('judul') }}">
-    </div>
+        @csrf
 
-    <div class="form-group">
-        <label for="isi">Isi</label>
-        <textarea name="isi" id="isi" class="form-control">{{ old('isi') }}</textarea>
-    </div>
+        <div class="form-group">
+            <label>Judul</label>
+            <input type="text" name="judul" class="form-control" value="{{ old('judul') }}">
+        </div>
 
-    <button type="submit" class="btn btn-primary">Simpan</button>
-</form>
+        <div class="form-group mt-3">
+            <label>Isi</label>
+            <textarea name="isi" id="isi" rows="10" class="form-control"></textarea>
+        </div>
 
+        <button type="submit" class="btn btn-primary mt-3">Simpan</button>
+    </form>
 </div>
 @endsection
 
-@section('scripts')
-<!-- CKEditor CDN -->
-<!-- CKEditor 5 Classic -->
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
 
-<script>
+@section('scripts')
+    <script src="{{ asset('assets/ckeditor5/ckeditor.js') }}"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
     ClassicEditor
-        .create(document.querySelector('#editor'))
-        .catch(error => {
-            console.error(error);
-        });
+        .create(document.querySelector('#isi'), {
+            toolbar: [
+                'heading', '|',
+                'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+                'alignment',
+                'undo', 'redo'
+            ],
+            alignment: {
+                options: [ 'left', 'center', 'right', 'justify' ]
+            }
+        })
+        .then(editor => {
+            console.log('Editor siap:', editor);
+        })
+        .catch(error => console.error('Terjadi kesalahan:', error));
+});
 </script>
 @endsection
+
+

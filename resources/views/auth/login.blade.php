@@ -1,14 +1,38 @@
-    <x-head></x-head>
-    <x-navbar></x-navbar>
+    <x-head :setting="$setting"/>
+
+        <header class="header">
+
+        <div class="header-top">
+            <x-sub-header :setting="$setting"/>
+    </header>
+
+            <!-- preloader -->
+    <div class="preloader">
+        <div class="loader-book">
+            <div class="loader-book-page"></div>
+            <div class="loader-book-page"></div>
+            <div class="loader-book-page"></div>
+        </div>
+    </div>
+    <!-- preloader end -->
+
+    <x-navbar :setting="$setting"/>
         <!-- login area -->
         <div class="login-area py-120">
             <div class="container">
                 <div class="col-md-5 mx-auto">
                     <div class="login-form">
                         <div class="login-header">
-                            <img src="assets/img/logo/logo.png" alt="">
+                            <img src="{{ asset('upload/setting/' . ($setting[0]->logo ?? 'default.png')) }}" alt="">
                             <p>Login </p>
                         </div>
+
+                        @if(request('session') == 'expired')
+                        <div class="alert alert-warning">
+                            Session Anda telah habis, silahkan login kembali.
+                        </div>
+                    @endif
+
 
                         @if(session('failed'))
                             <div class="alert alert-danger">{{session('failed')}}</div>
@@ -49,15 +73,11 @@
                                         Remember Me
                                     </label>
                                 </div>
-                                <a href="forgot-password.html" class="forgot-pass">Forgot Password?</a>
                             </div>
                             <div class="d-flex align-items-center">
                                 <button type="submit" class="theme-btn"><i class="far fa-sign-in"></i> Login</button>
                             </div>
                         </form>
-                        <div class="login-footer">
-                            <p>Don't have an account? <a href="register.html">Register.</a></p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -75,4 +95,4 @@ function togglePassword() {
 </script>
         <!-- login area end -->
 
-        <x-footer></x-footer>
+<x-footer></x-footer>

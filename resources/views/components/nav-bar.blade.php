@@ -1,9 +1,13 @@
-        <div class="main-navigation">
-            <nav class="navbar navbar-expand-lg">
-                <div class="container position-relative">
-                    <a class="navbar-brand" href="https://nusanipa.ac.id">
-                        <img src="{{ asset('assets/img/logo/logo2.png') }}" alt="logo">
-                    </a>
+        @props(['setting'])
+
+<div class="main-navigation">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container position-relative">
+
+            <a class="navbar-brand" href="https://nusanipa.ac.id">
+                <img src="{{ asset('upload/setting/' . ($setting[0]->logo ?? 'default.png')) }}" alt="logo">
+            </a>
+
                     <div class="mobile-menu-right">
                         <div class="search-btn">
                             <button type="button" class="nav-right-link search-box-outer"><i
@@ -25,6 +29,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="https://jurnal.nusanipa.ac.id/index.php/judexnipa">E-Jurnal</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/download">Download</a></li>
                         </ul>
                         <div class="nav-right">
                             <div class="nav-right-btn mt-1">

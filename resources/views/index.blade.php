@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
- <x-head></x-head>
+<x-head :setting="$setting" />
 
 <body class="home-3">
 
@@ -18,26 +18,8 @@
     <header class="header">
 
         <div class="header-top">
-            <div class="container">
-                <div class="header-top-wrap">
-                    <div class="header-top-left">
-                    </div>
-                    <div class="header-top-right">
-                        <div class="header-top-contact">
-                            <ul>
-                                <li>
-                                    <a href="#"><i class="far fa-location-dot"></i> Jln. Kesehatan, No.3, Maumere</a>
-                                </li>
-                                <li>
-                                    <a href="mailto:info@example.com"><i class="far fa-envelopes"></i> informasi@nusanipa.ac.id</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <x-nav-bar></x-nav-bar>
+            <x-sub-header :setting="$setting"/>
+        <x-nav-bar :setting="$setting"/>
     </header>
 
     <main class="main">
@@ -164,7 +146,7 @@
                             </div>
                             <div class="course-content">
                                 <h4 class="course-title">
-                                    <a href="course-single.html">{{$fasilitas['title']}}</a>
+                                    <p>{{$fasilitas['title']}}</p>
                                 </h4>
                                 <p class="course-text">
                                     {{$fasilitas['description']}}
@@ -240,19 +222,12 @@
                             <div class="team-img">
                                 <img src="{{ asset('assets/img/teams/' . $team->image) }}" alt="thumb">
                             </div>
-                            <div class="team-social">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-whatsapp"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-youtube"></i></a>
-                            </div>
                             <div class="team-content">
                                 <div class="team-bio">
-                                    <h5><a href="teacher-single.html">{{$team['title']}}</a></h5>
+                                    <h5><p>{{$team['title']}}</p></h5>
                                     <span>{{$team['description']}}</span>
                                 </div>
                             </div>
-                            <span class="team-social-btn"><i class="far fa-share-nodes"></i></span>
                         </div>
                     </div>
                     @endforeach
@@ -281,7 +256,7 @@
                                 <img src="{{ asset('assets/img/pictures/' . $pic->image) }}" alt="Gambar">
                             </div>
                             <div class="gallery-content">
-                                <a class="popup-img gallery-link" href="{{ asset($pic->image) }}">
+                                <a class="popup-img gallery-link" href="{{ asset('assets/img/pictures/' . $pic->image) }}">
                                     <i class="fal fa-plus"></i>
                                 </a>
                             </div>
@@ -316,7 +291,7 @@
                                 @endfor
                             </div>
                             <div class="testimonial-quote">
-                                <p>{{ Str::limit ($alumni->description),30}}</p>
+                                <p>{{$alumni->description}}</p>
                             </div>
                             <div class="testimonial-content">
                                 <div class="testimonial-author-img">

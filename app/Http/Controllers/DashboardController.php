@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\crudSlider;
+use App\Models\crudDownload;
 use App\Models\Team;
 use App\Models\Competence;
 use App\Models\crudFasilitas;
@@ -24,6 +25,7 @@ class DashboardController extends Controller
             'alumniCount' => crudAlumni::count(),
             'partnerCount' => crudPartner::count(),
             'newsCount' => CrudNews::count(),
+            'downloadCount' => CrudDownload::count(),
         ]);
     }
 

@@ -157,6 +157,27 @@ body {
   line-height: 1.8;
 }
 
+ol {
+    list-style-type: decimal !important;
+    margin-left: 25px !important;
+}
+
+ul {
+    list-style-type: disc !important;
+    margin-left: 25px !important;
+}
+
+li::marker {
+    content: normal !important;
+}
+
+li::marker {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600;
+}
+
+
+
 a {
   color:  var(--color-dark);
   display: inline-block;
@@ -313,6 +334,20 @@ label {
   position: relative;
   perspective: 150px;
 }
+
+.content-area ol {
+    list-style: decimal;
+    margin-left: 20px;
+}
+
+.content-area ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+ol { list-style: decimal !important; margin-left: 20px; }
+ul { list-style: disc !important; margin-left: 20px; }
+
 
 .loader-book-page {
   display: block;
@@ -4678,6 +4713,7 @@ label {
   color: var(--color-white);
   transition: all 0.5s ease-in-out;
 }
+
 
 .site-breadcrumb .breadcrumb-menu li::before {
   position: absolute;
