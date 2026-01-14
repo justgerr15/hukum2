@@ -16,7 +16,7 @@
     </div>
     <!-- preloader end -->
 
-    <x-navbar :setting="$setting"/>
+    <x-nav-bar :setting="$setting"/>
 
 <x-about-us-layout>
 <x-slot:title>{{$title}}</x-slot>

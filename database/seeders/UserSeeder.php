@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\slider;
-use App\Models\Competence;
+use App\Models\setting;
 
 class UserSeeder extends Seeder
 {
@@ -18,7 +18,12 @@ class UserSeeder extends Seeder
         //
         User::create(['name'=> 'Biro IT', 'email' => 'biroit@nusanipa.ac.id', 'status'=>'active','role'=>'superadmin','password'=>'admin']);
         User::create(['name'=> 'Admin Prodi', 'email' => 'prodi@nusanipa.ac.id', 'status'=>'active','role'=>'admin','password'=>'admin']);
-
-        Competence::create(['type'=> 'Kopetensi', 'image' => 'assets/img/icon/teacher.svg', 'title'=>'Judul','description'=>'Deskripsi']);
+	        Setting::create([
+            'name'    => 'Program Studi Hukum',
+            'address' => 'Jln.Kesehatan No 3',
+            'email'   => 'Hukum@nusanipa.ac.id',
+            'favicon' => '-',
+            'logo'    => '-',
+        ]);
     }
 }

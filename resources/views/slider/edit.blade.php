@@ -56,7 +56,7 @@
 
                         <div class="form-group">
                             <label>Gambar Sekarang</label><br>
-                            <img src="{{ asset($slider->img) }}" width="200" style="border-radius:5px;">
+				<img src="{{ asset('assets/img/sliders/'.$slider->img) }}" width="200" style="border-radius:5px;">
                         </div>
 
                         <div class="form-group">

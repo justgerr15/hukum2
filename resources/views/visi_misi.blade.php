@@ -16,7 +16,7 @@
     </div>
     <!-- preloader end -->
 
-    <x-navbar :setting="$setting"/>
+    <x-nav-bar :setting="$setting"/>
 
 <x-about-us-layout>
 
@@ -25,9 +25,11 @@
 <x-slot:title>{{$title}}</x-slot>
 
 @foreach($deskripsi as $item)
-    <h3>{{ $item->judul }}</h3>
+    <h3><center>{{ $item->judul }}</center></h3>
     <br>
     {!! $item->isi !!}
+    <br>
+   <br>
 @endforeach
 
 </x-about-us-layout>

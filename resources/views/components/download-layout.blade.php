@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<x-head></x-head>
-
 <body>
 
     <!-- preloader -->
@@ -14,34 +12,6 @@
         </div>
     </div>
     <!-- preloader end -->
-
-
-    <!-- header area -->
-    <header class="header">
-
-        <div class="header-top">
-            <div class="container">
-                <div class="header-top-wrap">
-                    <div class="header-top-left">
-                    </div>
-                    <div class="header-top-right">
-                        <div class="header-top-contact">
-                            <ul>
-                                <li>
-                                    <a href="#"><i class="far fa-location-dot"></i> Jln. Kesehatan, No.3, Maumere</a>
-                                </li>
-                                <li>
-                                    <a href="mailto:info@example.com"><i class="far fa-envelopes"></i> informasi@nusanipa.ac.id</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <x-nav-bar></x-nav-bar>
-    </header>
-    <!-- header area end -->
 
     <main class="main">
 

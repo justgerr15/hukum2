@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="form-group mt-3">
-                            <label>Ganti Image (Opsional)</label>
+                            <label>Ganti Image (570px X 570px) </label>
                             <input type="file" name="image" class="form-control">
                         </div>
 

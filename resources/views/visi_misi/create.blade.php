@@ -1,39 +1,61 @@
 @extends('layout.master')
 
 @section('content')
-<div class="container mt-4">
-    <h2>Tambah Visi & Misi</h2>
 
-    <a href="{{ route('visi_misi.index') }}" class="btn btn-secondary mb-3">Kembali</a>
+<div class="content-wrapper">
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>@foreach ($errors->all() as $error) <li>{{ $error }}</li> @endforeach</ul>
+    <section class="content-header">
+        <div class="container-fluid">
+            <h3><b>TAMBAH VISI & MISI</b></h3>
         </div>
-    @endif
+    </section>
 
-    <form action="{{ route('visi_misi.store') }}" method="POST">
-        @csrf
+    <section class="content">
+        <div class="container-fluid">
 
-        <div class="form-group">
-            <label>Judul</label>
-            <input type="text" name="judul" class="form-control" value="{{ old('judul') }}">
+            <div class="card shadow-sm">
+                <div class="card-body px-4 py-4">
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('visi_misi.store') }}" method="POST">
+                        @csrf
+
+                        <div class="form-group mb-3">
+                            <label><b>Judul</b></label>
+                            <input type="text" name="judul" class="form-control" value="{{ old('judul') }}" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label><b>Isi</b></label>
+                            <textarea name="isi" id="isi" rows="6" class="form-control"></textarea>
+                        </div>
+
+                        <button class="btn btn-success">Simpan</button>
+                        <a href="{{ route('visi_misi.index') }}" class="btn btn-secondary">Kembali</a>
+                    </form>
+
+                </div>
+            </div>
+
         </div>
+    </section>
 
-        <div class="form-group mt-3">
-            <label>Isi</label>
-            <textarea name="isi" id="isi" rows="10" class="form-control"></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary mt-3">Simpan</button>
-    </form>
 </div>
+
 @endsection
 
-
 @section('scripts')
-    <script src="{{ asset('assets/ckeditor5/ckeditor.js') }}"></script>
-    <script>
+<script src="{{ asset('assets/ckeditor5/ckeditor.js') }}"></script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     ClassicEditor
         .create(document.querySelector('#isi'), {
@@ -47,12 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 options: [ 'left', 'center', 'right', 'justify' ]
             }
         })
-        .then(editor => {
-            console.log('Editor siap:', editor);
-        })
-        .catch(error => console.error('Terjadi kesalahan:', error));
+        .then(editor => console.log('Editor siap:', editor))
+        .catch(error => console.error('Kesalahan:', error));
 });
 </script>
 @endsection
-
-

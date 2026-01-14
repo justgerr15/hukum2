@@ -13,7 +13,7 @@ class CrudNewsController extends Controller
 public function index()
 
 {
-$data = crudNews::all();
+$data = CrudNews::orderBy('date', 'desc')->get();
 return view('crud_news.index', compact('data'));
 }
 

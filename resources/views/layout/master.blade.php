@@ -49,8 +49,6 @@
   <!-- Content Wrapper. Contains page content -->
    
   @yield('content')
-
-  @yield('scripts')
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
@@ -76,7 +74,7 @@
 <script src="{{asset('AdminLTE/dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <!--<script src="{{asset('AdminLTE/dist/js/demo.js')}}"></script>-->
-
+  @yield('scripts')
 @yield('js')
 </body>
 </html>

@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Change Image (Optional)</label>
+                            <label>Change Image (600px X 400px)</label>
                             <input type="file" name="image" class="form-control">
                         </div>
 

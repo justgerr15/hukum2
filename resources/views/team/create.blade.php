@@ -19,7 +19,7 @@
                         @csrf
 
                         <div class="form-group">
-                            <label>Foto Team</label>
+                            <label>Foto Team (570px X 570px)</label>
                             <input type="file" name="image" class="form-control" required>
                         </div>
 

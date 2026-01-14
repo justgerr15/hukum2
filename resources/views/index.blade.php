@@ -109,7 +109,7 @@
                                 <span class="event-date"><i class="far fa-calendar-alt"></i>{{$news['date']}}</span>
                             </div>
                             <h4 class="event-title"><a href="/news/{{$news['id']}}">{{$news['title']}}</a></h4>
-                            <p>{{ Str::limit ($news['main'],50)}}</p>
+                            <p>{!! Str::limit($news->main, 75) !!}</p>
                             <div class="event-btn">
                                 <a href="/news/{{$news['id']}}" class="theme-btn">Read More<i
                                         class="fas fa-arrow-right-long"></i></a>
@@ -141,11 +141,11 @@
                         <div class="course-item wow fadeInUp" data-wow-delay=".25s">
                             <div class="course-img">
                                 <span class="course-tag"><i class="far fa-bookmark"></i> {{$fasilitas['type']}}</span>
-                                <img src="{{ asset('assets/img/facilities/' . $fasilitas->image) }}" alt="">
-                                <a href="#" class="btn"><i class="far fa-link"></i></a>
+                                <img src="{{ asset($fasilitas->image) }}" alt="">
                             </div>
                             <div class="course-content">
                                 <h4 class="course-title">
+				<br>
                                     <p>{{$fasilitas['title']}}</p>
                                 </h4>
                                 <p class="course-text">
@@ -170,8 +170,8 @@
                                         <img src="assets/img/icon/course.svg" alt="">
                                     </div>
                                     <div>
-                                        <span class="counter" data-count="+" data-to="500" data-speed="3000">500</span>
-                                        <h6 class="title">+ Total Courses</h6>
+                                        <span class="counter" data-count="+" data-to="507" data-speed="3000">500</span>
+                                        <h6 class="title"> Mahasiswa</h6>
                                     </div>
                                 </div>
                             </div>
@@ -181,8 +181,8 @@
                                         <img src="assets/img/icon/graduation.svg" alt="">
                                     </div>
                                     <div>
-                                        <span class="counter" data-count="+" data-to="1900" data-speed="3000">1900</span>
-                                        <h6 class="title">+ Our Students</h6>
+                                        <span class="counter" data-count="+" data-to="44" data-speed="3000">1900</span>
+                                        <h6 class="title"> Alumni </h6>
                                     </div>
                                 </div>
                             </div>
@@ -192,8 +192,8 @@
                                         <img src="assets/img/icon/teacher-2.svg" alt="">
                                     </div>
                                     <div>
-                                        <span class="counter" data-count="+" data-to="750" data-speed="3000">750</span>
-                                        <h6 class="title">+ Skilled Lecturers</h6>
+                                        <span class="counter" data-count="+" data-to="19" data-speed="3000">750</span>
+                                        <h6 class="title"> Dosen</h6>
                                     </div>
                                 </div>
                             </div>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\CrudDownloadController;
 use App\Http\Controllers\CrudUserController;
 
 use App\Http\Controllers\CrudAlumniController;
@@ -17,8 +17,6 @@ use App\Http\Controllers\CrudFasilitasController;
 use App\Http\Controllers\CrudKopetensiController;
 use App\Http\Controllers\CrudTeamController;
 use App\Http\Controllers\ChangePasswordController;
-
-use App\Http\Controllers\crudDownloadController;
 
 use App\Http\Controllers\FacilityController;
 
@@ -45,7 +43,7 @@ use App\Http\Controllers\CrudNewsController;
 
 use App\Models\counter;
 use App\Models\setting;
-use App\Models\CrudNews;
+use App\Models\crudNews;
 use App\Models\crudDownload;
 use App\Models\facilitie;
 
@@ -53,8 +51,8 @@ use App\Models\crudPartner;
 use App\Models\crudPicture;
 use App\Models\crudVisiMisi;
 use App\Models\CrudKopetensi;
-use App\Models\CrudSlider;
 
+use App\Models\crudSlider;
 use App\Http\Controllers\CrudPartnerController;
 
 use App\Models\team;
@@ -69,7 +67,7 @@ Route::get('/', function () {
         'pictures'=>crudPicture::all(),
         'slider'=>crudSlider::all(),
         'team'=>team::all(),
-        'news'=>CrudNews::all(),
+        'news'=> CrudNews::orderBy('date', 'desc')->get(),
         'setting'=>setting::all(),
     ]);
 });
@@ -190,7 +188,7 @@ Route::resource('news', CrudNewsController::class);
 
 Route::get('/news/{id}', function($id){
     // Ambil hanya 10 berita terbaru
-    $news = CrudNews::orderBy('created_at', 'desc')->take(5)->get();
+    $news = CrudNews::orderBy('date', 'desc')->take(5)->get();
 
     $post = CrudNews::findOrFail($id);
 
@@ -206,11 +204,14 @@ Route::middleware(['auth', 'check_role:superadmin'])->group(function () {
     Route::delete('/user/delete/{id}', [CrudUserController::class, 'destroy'])->name('user.destroy');
 });
 
-// Profile user (siapa pun yang login)
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [CrudUserController::class, 'profile'])->name('user.profile');
-    Route::post('/profile/update', [CrudUserController::class, 'profileUpdate'])->name('user.profile.update');
-});
+Route::get('/login', function () {
+    return view('auth.login', [
+        'setting' => setting::all()
+    ]);
+})->name('login');
+
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::resource('crud_news', CrudNewsController::class);
 
@@ -222,8 +223,6 @@ Route::prefix('visimisi')->group(function () {
     Route::put('/update/{id}', [CrudVisiMisiController::class, 'update'])->name('visi_misi.update');
     Route::delete('/delete/{id}', [CrudVisiMisiController::class, 'destroy'])->name('visi_misi.delete');
 });
-
-Route::resource('downloads', CrudDownloadController::class);
 Route::prefix('downloads')->group(function () {
     Route::get('/', [CrudDownloadController::class, 'index'])->name('downloads.index');
     Route::get('/create', [CrudDownloadController::class, 'create'])->name('downloads.create');
@@ -232,10 +231,21 @@ Route::prefix('downloads')->group(function () {
     Route::put('/update/{id}', [CrudDownloadController::class, 'update'])->name('downloads.update');
     Route::delete('/delete/{id}', [CrudDownloadController::class, 'destroy'])->name('downloads.delete');
 });
+
 Route::get('/download', function () {
     return view('download', [
         'title' => 'Download',
-        'download' => CrudDownload::all()
+        'data' => CrudDownload::all(),
+        'setting'=>setting::all(),
+    ]);
+})->name('public.download');
+
+
+Route::get('/download', function () {
+    return view('download', [
+        'title' => 'Download',
+        'data' => CrudDownload::all(),
+	'setting'=>setting::all(),
     ]);
 });
 

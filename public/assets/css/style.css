@@ -6028,7 +6028,7 @@ ul { list-style: disc !important; margin-left: 20px; }
 ======================*/
 
 .footer-area {
-  background: var(--footer-bg);
+  background-image: url(../img/counter/Foto.jpg);
   position: relative;
   z-index: 1;
 }
@@ -6444,7 +6444,7 @@ ul { list-style: disc !important; margin-left: 20px; }
 
 .home-3 .footer-area{
   position: relative;
-  background-image: url(../img/footer/01.jpg);
+  background-image: url(../img/counter/Foto.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

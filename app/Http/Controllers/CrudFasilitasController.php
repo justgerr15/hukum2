@@ -38,7 +38,7 @@ class CrudFasilitasController extends Controller
             'type' => $request->type,
             'title' => $request->title,
             'description' => $request->description,
-            'image' => $filename,
+            'image' => 'assets/img/facilities/'.$filename,
         ]);
 
         return redirect('/facilities')->with('success', 'Fasilitas berhasil ditambahkan!');

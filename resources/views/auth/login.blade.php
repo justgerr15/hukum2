@@ -16,7 +16,7 @@
     </div>
     <!-- preloader end -->
 
-    <x-navbar :setting="$setting"/>
+    <x-nav-bar :setting="$setting"/>
         <!-- login area -->
         <div class="login-area py-120">
             <div class="container">

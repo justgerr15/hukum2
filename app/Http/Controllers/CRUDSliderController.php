@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CrudSlider;
+use App\Models\crudSlider;
 use Illuminate\Http\Request;
 
 class CRUDSliderController extends Controller
@@ -49,7 +49,7 @@ class CRUDSliderController extends Controller
         }
 
         // Simpan ke database
-        CrudSlider::create([
+        crudSlider::create([
             'head' => $request->head,
             'title' => $request->title,
             'description' => $request->description,

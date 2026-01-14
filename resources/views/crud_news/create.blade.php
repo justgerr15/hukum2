@@ -42,7 +42,7 @@
                                 {{-- MAIN CONTENT --}}
                                 <div class="mb-3">
                                     <label class="form-label">Main</label>
-                                    <textarea name="main" id="isi" class="form-control" rows="5" required></textarea>
+                                    <textarea name="main" id="isi" class="form-control" rows="5"></textarea>
                                 </div>
 
                                 <button class="btn btn-success w-100">Simpan</button>
@@ -67,21 +67,17 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    ClassicEditor
-        .create(document.querySelector('#isi'), {
-            toolbar: [
-                'heading', '|',
-                'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
-                'alignment',
-                'undo', 'redo'
-            ],
-            alignment: {
-                options: [ 'left', 'center', 'right', 'justify' ]
-            }
-        })
-        .then(editor => console.log('Editor siap:', editor))
-        .catch(error => console.error('Terjadi kesalahan:', error));
+let editor;
+
+ClassicEditor
+    .create(document.querySelector('#isi'))
+    .then(newEditor => {
+        editor = newEditor;
+    });
+
+document.querySelector("form").addEventListener("submit", function (e) {
+    document.querySelector("#isi").value = editor.getData();
 });
 </script>
+
 @endsection

@@ -41,7 +41,7 @@
                       <td>{{ $item->type }}</td>
 
                       <td>
-                        <img src="{{ asset('assets/img/facilities/' . $item->image) }}" 
+                        <img src="{{ asset($item->image) }}" 
                              width="90" 
                              class="img-thumbnail">
                       </td>

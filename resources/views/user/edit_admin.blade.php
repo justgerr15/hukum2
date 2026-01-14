@@ -12,6 +12,16 @@
             @csrf
             @method('PUT')
 
+		@if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             {{-- NAMA --}}
             <div class="form-group mb-3">
                 <label>Nama Lengkap</label>
@@ -38,6 +48,15 @@
             <div class="form-group mb-3">
                 <label>Password Baru (Opsional)</label>
                 <input type="password" name="password" class="form-control" placeholder="Isi jika ingin mengganti password">
+            </div>
+
+	    {{-- STATUS --}}
+            <div class="form-group mb-3">
+                <label>Status</label>
+                <select name="status" class="form-control">
+                    <option value="verify" {{ $user->status == 'verify' ? 'selected' : '' }}>Verify</option>
+                    <option value="active" {{ $user->status == 'active' ? 'selected' : '' }}>Active</option>
+                </select>
             </div>
 
             <button type="submit" class="btn btn-primary w-100 mb-3">Update User</button>

@@ -22,3 +22,10 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+*.sql
+/public/uploads/
+/public/assets/img/
+/storage/
+/public/AdminLTE/
+
